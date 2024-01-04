@@ -1,0 +1,72 @@
+<html>
+<body>
+    <script>
+        var result = 0;
+        var continueCalculating = true;
+
+        do {
+            var firstNumber;
+
+            if (result === 0)
+            {
+                firstNumber = prompt("Enter the first number");
+            } 
+            else
+            {
+                firstNumber = result;
+            }
+
+            var operator = prompt("Enter the operator (+, -, *, /, %) or 'exit' to stop");
+
+            if (operator.toLowerCase() === 'exit')
+            {
+                continueCalculating = false;
+                break;
+            }
+
+            var secondNumber = prompt("Enter the second number");
+
+            firstNumber = +firstNumber;
+            secondNumber = +secondNumber;
+
+            switch (operator)
+            {
+                case '+':
+                    result = firstNumber + secondNumber;
+                    alert(firstNumber + " + " + secondNumber + " = " + result);
+                    break;
+                case '-':
+                    result = firstNumber - secondNumber;
+                    alert(firstNumber + " - " + secondNumber + " = " + result);
+                    break;
+                case '*':
+                    result = firstNumber * secondNumber;
+                    alert(firstNumber + " * " + secondNumber + " = " + result);
+                    break;
+                case '/':
+                    if (secondNumber === 0)
+                    {
+                        alert("Cannot divide by zero");
+                        result = 0;
+                    } 
+                    else
+                    {
+                        result = firstNumber / secondNumber;
+                        alert(firstNumber + " / " + secondNumber + " = " + result);
+                    }
+                    break;
+                case '%':
+                    result = firstNumber % secondNumber;
+                    alert(firstNumber + " % " + secondNumber + " = " + result);
+                    break;
+                default:
+                    alert('Invalid operator');
+                    result = 0;
+                    break;
+            }
+        } while (continueCalculating);
+
+        alert("Final result: " + result);
+    </script>
+</body>
+</html>
