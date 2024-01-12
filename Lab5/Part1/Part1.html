@@ -1,0 +1,289 @@
+<html>
+<body>
+    <script>
+        let employees = [];
+        let offices = [];
+    
+        class Person 
+        {
+          constructor(name, money, sleepMode, healthRate) 
+          {
+            this.name = name;
+            this.money = money;
+            this.sleepMode = sleepMode;
+            this.healthRate = healthRate;
+          }
+    
+          sleep(hours) 
+          {
+            if (hours === 7) 
+            {
+              this.sleepMode = "Happy";
+            } 
+            else if (hours < 7) 
+            {
+              this.sleepMode = "Tired";
+            } 
+            else 
+            {
+              this.sleepMode = "Lazy";
+            }
+            return this.sleepMode;
+          }
+    
+          eat(meals) 
+          {
+            if (meals === 3) 
+            {
+              this.healthRate = 100;
+            } 
+            else if (meals === 2) 
+            {
+              this.healthRate = 75;
+            } 
+            else 
+            {
+              this.healthRate = 50;
+            }
+            return this.healthRate;
+          }
+    
+          buy(items) 
+          {
+            this.money -= (10 * items);
+            return this.money;
+          }
+        }
+    
+        class Employee extends Person 
+        {
+          static count = 0;
+    
+          constructor(name, money, sleepMode, healthRate, email, workMood, salary, isManager) 
+          {
+            super(name, money, sleepMode, healthRate);
+            this.email = email;
+            this.workMood = workMood;
+            this.salary = salary;
+            this.isManager = isManager;
+            this.id = ++Employee.count;
+          }
+    
+          work(hours) 
+          {
+            if (hours === 8) 
+            {
+              this.workMood = "Happy";
+            } 
+            else if (hours > 8) 
+            {
+              this.workMood = "Tired";
+            } 
+            else 
+            {
+              this.workMood = "Lazy";
+            }
+            return this.workMood;
+          }
+        }
+    
+        class Office 
+        {
+          constructor(name) 
+          {
+            this.name = name;
+            this.employees = [];
+          }
+    
+          getAllEmployees() 
+          {
+            return this.employees;
+          }
+    
+          getEmployee(empId) 
+          {
+            return this.employees.find(emp => emp.id === empId);
+          }
+    
+          hire(employee) 
+          {
+            if (employee.salary < 1000) 
+            {
+              alert("Salary must be 1000 or more");
+              return false;
+            }
+    
+            if (employee.healthRate < 0 || employee.healthRate > 100) 
+            {
+              alert("Health rate must be between 0 and 100");
+              return false;
+            }
+    
+            this.employees.push(employee);
+            alert("Employee hired successfully");
+            return true;
+          }
+    
+          fire(empId) 
+          {
+            const index = this.employees.findIndex(emp => emp.id === empId);
+            if (index !== -1) 
+            {
+              this.employees.splice(index, 1);
+              alert(`Employee with ID ${empId} has been fired.`);
+              return true;
+            } 
+            else 
+            {
+              alert("Employee not found.");
+              return false;
+            }
+          }
+        }
+
+        function mainMenu() 
+        {
+          while (true) 
+          {
+            let choice = prompt(`
+                1- Add Employee
+                2- Add Office
+                3- Show All Employees
+                4- Show Employee with ID
+                5- Hire Employee
+                6- Fire Employee
+                7- Exit
+            `);
+    
+            switch (choice) 
+            {
+              case "1":
+                addEmployee();
+                break;
+              case "2":
+                addOffice();
+                break;
+              case "3":
+                showAllEmployees();
+                break;
+              case "4":
+                showEmployeeWithID();
+                break;
+              case "5":
+                hireEmployee();
+                break;
+              case "6":
+                fireEmployee();
+                break;
+              case "7":
+                alert("Exiting the application.");
+                return; // Exit the function to stop the loop
+              default:
+                alert("Invalid choice. Please enter a number between 1 and 7.");
+            }
+          }
+        }
+    
+        function addEmployee() 
+        {
+          let name = prompt("Enter the employee's name:");
+          let money = parseFloat(prompt("Enter the amount of money:"));
+          let sleepMode = prompt("Enter the sleep mode:");
+          let healthRate = parseInt(prompt("Enter the health rate (0-100):"));
+          let email = prompt("Enter the email address:");
+          let workMood = prompt("Enter the work mood:");
+          let salary = parseFloat(prompt("Enter the salary:"));
+          let isManager = prompt("Is this employee a manager? (yes/no)") === "yes";
+    
+          let newEmployee = new Employee(name, money, sleepMode, healthRate, email, workMood, salary, isManager);
+          employees.push(newEmployee);
+          alert(`Employee added with ID: ${newEmployee.id}`);
+        }
+    
+        function addOffice() 
+        {
+          let officeName = prompt("Enter the office name:");
+          let newOffice = new Office(officeName);
+          offices.push(newOffice);
+          alert(`Office "${officeName}" has been added.`);
+        }
+    
+        function showAllEmployees() 
+        {
+          let officeName = prompt("Enter the office name to list all employees:");
+          let office = offices.find(o => o.name === officeName);
+          if (!office) 
+          {
+            alert("Office not found.");
+            return;
+          }
+          let employeeList = office.getAllEmployees();
+          if (employeeList.length === 0) 
+          {
+            alert("No employees found in this office.");
+            return;
+          }
+          let output = "Employees:\n";
+          employeeList.forEach(emp => 
+          {
+            output += `ID: ${emp.id}, Name: ${emp.name}, Email: ${emp.email}, Salary: ${emp.salary}, Is Manager: ${emp.isManager}\n`;
+          });
+          alert(output);
+        }
+    
+        function showEmployeeWithID() 
+        {
+          let officeName = prompt("Enter the office name:");
+          let office = offices.find(o => o.name === officeName);
+          if (!office) 
+          {
+            alert("Office not found.");
+            return;
+          }
+          let empId = parseInt(prompt("Enter the employee's ID:"));
+          let employee = office.getEmployee(empId);
+          if (!employee) 
+          {
+            alert("Employee not found.");
+            return;
+          }
+          let output = `ID: ${employee.id}, Name: ${employee.name}, Email: ${employee.email}, Salary: ${employee.salary}, Is Manager: ${employee.isManager}`;
+          alert(output);
+        }
+    
+        function hireEmployee() 
+        {
+          let officeName = prompt("Enter the office name:");
+          let office = offices.find(o => o.name === officeName);
+          if (!office) 
+          {
+            alert("Office not found.");
+            return;
+          }
+          let empId = parseInt(prompt("Enter the ID of the employee to hire:"));
+          let employee = employees.find(emp => emp.id === empId);
+          if (!employee) 
+          {
+            alert("Employee not found.");
+            return;
+          }
+          office.hire(employee);
+        }
+    
+        function fireEmployee() 
+        {
+          let officeName = prompt("Enter the office name:");
+          let office = offices.find(o => o.name === officeName);
+          if (!office) 
+          {
+            alert("Office not found.");
+            return;
+          }
+          let empId = parseInt(prompt("Enter the ID of the employee to fire:"));
+          office.fire(empId);
+        }
+    
+        mainMenu();
+      </script>
+</body>
+</html>
