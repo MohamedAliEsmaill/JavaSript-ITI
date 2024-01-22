@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interactive Main Page</title>
+    <style>
+        body 
+        {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding-top: 100px;
+        }
+
+        .part 
+        {
+            display: inline-block;
+            padding: 20px 40px;
+            margin: 20px;
+            border-radius: 12px;
+            background-color: #007bff;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .part:hover 
+        {
+            background-color: #0056b3;
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .dynamic-text 
+        {
+            margin-top: 30px;
+            font-size: 20px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div id="part1" class="part">
+        Login Page
+    </div>
+    <div id="part2" class="part">
+        Todo List app
+    </div>
+
+    <div id="dynamicText" class="dynamic-text"></div>
+
+    <script>
+        document.getElementById('part1').addEventListener('mouseover', function() 
+        {
+            document.getElementById('dynamicText').textContent = 'Part 1';
+        });
+
+        document.getElementById('part2').addEventListener('mouseover', function() 
+        {
+            document.getElementById('dynamicText').textContent = 'Part 2';
+        });
+
+        document.getElementById('part1').addEventListener('mouseout', function() 
+        {
+            document.getElementById('dynamicText').textContent = '';
+        });
+
+        document.getElementById('part2').addEventListener('mouseout', function() 
+        {
+            document.getElementById('dynamicText').textContent = '';
+        });
+
+        document.getElementById('part1').addEventListener('click', function() 
+        {
+            window.location.href = 'part2/index.html';
+        });
+
+        document.getElementById('part2').addEventListener('click', function() 
+        {
+            window.location.href = 'part1/index.html';
+        });
+    </script>
+</body>
+</html>

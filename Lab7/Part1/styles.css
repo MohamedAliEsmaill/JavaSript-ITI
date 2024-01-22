@@ -1,0 +1,91 @@
+/* Basic Reset */
+* 
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Todo Container */
+.todo-container 
+{
+    max-width: 300px;
+    margin: 20px auto;
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#todo-list 
+{
+    list-style-type: none;
+}
+
+/* Task Styling */
+.todo-task 
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    padding: 5px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+/* Task Text */
+.task-text 
+{
+    flex-grow: 1;
+}
+
+.done 
+{
+    text-decoration: line-through;
+    color: #5cb85c;
+}
+
+/* Buttons */
+button 
+{
+    padding: 5px 10px;
+    margin-left: 5px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button:hover 
+{
+    opacity: 0.8;
+}
+
+#add-task 
+{
+    background: #007bff;
+    color: white;
+}
+
+.delete-btn 
+{
+    background: #d9534f;
+    color: white;
+}
+
+.done-btn 
+{
+    background: #5cb85c;
+    color: white;
+}
+
+/* Input */
+#new-task 
+{
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
